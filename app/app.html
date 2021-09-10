@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            margin:0;
+        }
+        body{
+            height:100vh;
+            width:100vw;
+        }
+    </style>
+    <title>APP&reg;</title>
+</head>
+<body>
+    <div class="form">
+        
+        <h3>CADASTRO</h3>
+        <input type="text" placeholder="email" id="email">
+        <input type="text" placeholder="nome de usuário" id="username">
+        <input type="text" placeholder="apelido" id="nickname">
+        <input type="password" placeholder="password" id="pass">
+        <button onclick="test(Event)">obter</button>
+
+
+        <table style="border:2px;">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>email</th>
+                    <th>nome</th>
+                    <th>apelido</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td id="id"></td>
+                    <td id="email"></td>
+                    <td id="username"></td>
+                    <td id="nickname"></td>
+                </tr>
+            </tbody>
+        </table>
+     
+    </div>
+    
+
+    <script>
+        let doc = document
+        doc.onclick = addEventListener('click',(e)=>e.preventDefault())
+    
+        function retorna(){
+            let id = doc.querySelector('#id')
+            let email = doc.querySelector('#email')
+            let username = doc.querySelector('#username')
+            let nickname = doc.querySelector('#nickname')
+
+            const url = 'http://localhost:3004/app'
+
+            const config = {
+                method:'GET'
+            }
+
+            fetch(url,config)
+                        .then(res => console.log(res.json()))
+                        .then(res =>{
+                            res.map(e=>{
+                                let idBk = e.id
+                                id.innerHTML = idBk
+
+                                let emailBk = e.email
+                                email.innerHTML = emailBk
+
+                                let nameBk = e.username
+                                username.innerHTML = nameBk
+
+                                let nicknameBk = e.nickname
+                                nickname.innerHTML = nicknameBk
+                            })
+                        })
+                        .catch(err => console.log(err))
+        }
+
+        retorna()
+    </script>
+</body>
+</html>
